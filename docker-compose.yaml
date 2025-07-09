@@ -1,86 +1,86 @@
 services:
   # API
-  gs-api:
+  gsa-api:
     image: ntnp/laravel-dev:8.4
-    container_name: gs-api
-    hostname: gs-api
+    container_name: gsa-api
+    hostname: gsa-api
     depends_on:
-      - gs-mysql
-      - gs-redis
+      - gsa-mysql
+      - gsa-redis
     networks:
       - app
     ports:
       - "5173:5173"
     volumes:
-      - ./gs-api:/var/www/html
+      - ./gsa-api:/var/www/html
 
   # API Horizon/Scheduler
-  gs-api-horizon:
+  gsa-api-horizon:
     image: ntnp/laravel-horizon-dev:8.4
-    container_name: gs-api-horizon
-    hostname: gs-api-horizon
+    container_name: gsa-api-horizon
+    hostname: gsa-api-horizon
     depends_on:
-      - gs-mysql
-      - gs-redis
+      - gsa-mysql
+      - gsa-redis
     networks:
       - app
     volumes:
-      - ./gs-api:/var/www/html
+      - ./gsa-api:/var/www/html
 
   # API Reverb
-  gs-api-reverb:
+  gsa-api-reverb:
     image: ntnp/laravel-reverb-dev:8.4
-    container_name: gs-api-reverb
-    hostname: gs-api-reverb
+    container_name: gsa-api-reverb
+    hostname: gsa-api-reverb
     depends_on:
-      - gs-mysql
-      - gs-redis
+      - gsa-mysql
+      - gsa-redis
     networks:
       - app
     volumes:
-      - ./gs-api:/var/www/html
+      - ./gsa-api:/var/www/html
 
   # API web
-  gs-api-web:
+  gsa-api-web:
     image: nginx:latest
-    container_name: gs-api-web
-    hostname: gs-api-web
+    container_name: gsa-api-web
+    hostname: gsa-api-web
     depends_on:
-      - gs-api
+      - gsa-api
     networks:
       - app
     ports:
       - "8070:80"
       - "8071:443"
     volumes:
-      - ./gs-api:/var/www/html
+      - ./gsa-api:/var/www/html
       - ./.docker/nginx/ssl:/etc/nginx/ssl
       - ./.docker/nginx/api-web.conf:/etc/nginx/conf.d/default.conf
 
   # API Reverb web
-  gs-api-reverb-web:
+  gsa-api-reverb-web:
     image: nginx:latest
-    container_name: gs-api-reverb-web
-    hostname: gs-api-reverb-web
+    container_name: gsa-api-reverb-web
+    hostname: gsa-api-reverb-web
     depends_on:
-      - gs-api-reverb
+      - gsa-api-reverb
     networks:
       - app
     ports:
       - "9070:80"
       - "9071:443"
     volumes:
-      - ./gs-api:/var/www/html
+      - ./gsa-api:/var/www/html
       - ./.docker/nginx/ssl:/etc/nginx/ssl
       - ./.docker/nginx/api-reverb-web.conf:/etc/nginx/conf.d/default.conf
 
   # MySQL
-  gs-mysql:
+  gsa-mysql:
     image: mariadb:latest
-    container_name: gs-mysql
-    hostname: gs-mysql
+    container_name: gsa-mysql
+    hostname: gsa-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: 20240101
+      MYSQL_ROOT_PASSWORD: 20250101
     networks:
       - app
     ports:
@@ -89,11 +89,11 @@ services:
       - ./.docker_data/mysql:/var/lib/mysql
 
   # Redis
-  gs-redis:
+  gsa-redis:
     image: redis:alpine
-    container_name: gs-redis
-    hostname: gs-redis
-    command: "redis-server --requirepass 20240101"
+    container_name: gsa-redis
+    hostname: gsa-redis
+    command: "redis-server --requirepass 20250101"
     networks:
       - app
     ports:

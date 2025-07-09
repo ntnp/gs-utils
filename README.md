@@ -1,4 +1,4 @@
-# gs-utils
+# gsa-utils
 
 ## nginx
 

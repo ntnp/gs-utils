@@ -1,6 +1,6 @@
 .vscode
 .idea
 
-gs-api
+gsa-api
 
 *.pem
